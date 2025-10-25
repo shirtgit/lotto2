@@ -9,6 +9,7 @@ import os
 from typing import Dict, List, Optional
 import time
 import streamlit as st
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from config import LOTTO_API_URL, MAX_DRAW_NUMBER, MIN_DRAW_NUMBER, CACHE_FILE
 
 
@@ -19,6 +20,7 @@ class LottoDataCollector:
         self.api_url = LOTTO_API_URL
         self.cache_file = CACHE_FILE
         self.data: Dict[int, Dict] = {}
+        self.session = requests.Session()  # 세션 재사용으로 속도 향상
         
     def load_cache(self) -> bool:
         """캐시된 데이터를 로드합니다."""
@@ -50,7 +52,7 @@ class LottoDataCollector:
         }
         
         try:
-            response = requests.get(self.api_url, params=params, timeout=10)
+            response = self.session.get(self.api_url, params=params, timeout=5)
             response.raise_for_status()
             data = response.json()
             
@@ -74,55 +76,63 @@ class LottoDataCollector:
             else:
                 return None
                 
-        except requests.exceptions.RequestException as e:
-            st.warning(f"{draw_no}회차 데이터 가져오기 실패: {e}")
-            return None
-        except Exception as e:
-            st.warning(f"{draw_no}회차 처리 중 오류: {e}")
+        except Exception:
             return None
     
     def collect_all_data(self, start_draw: int = MIN_DRAW_NUMBER, 
                          end_draw: int = MAX_DRAW_NUMBER,
                          progress_bar=None) -> Dict[int, Dict]:
-        """모든 회차의 데이터를 수집합니다."""
+        """모든 회차의 데이터를 병렬로 수집합니다."""
         
         # 기존 캐시 로드
         self.load_cache()
         
-        total_draws = end_draw - start_draw + 1
-        collected = 0
-        failed = 0
+        # 수집이 필요한 회차만 필터링
+        draws_to_fetch = [draw_no for draw_no in range(start_draw, end_draw + 1) 
+                         if draw_no not in self.data]
         
-        for draw_no in range(start_draw, end_draw + 1):
-            # 이미 캐시에 있으면 스킵
-            if draw_no in self.data:
-                collected += 1
-                if progress_bar:
-                    progress_bar.progress(collected / total_draws)
-                continue
-            
-            # API로부터 데이터 수집
-            draw_data = self.fetch_draw_data(draw_no)
-            
-            if draw_data:
-                self.data[draw_no] = draw_data
-                collected += 1
-                
-                # 주기적으로 캐시 저장
-                if collected % 50 == 0:
-                    self.save_cache()
-            else:
-                failed += 1
-                # 연속 실패가 많으면 중단 (미래 회차 도달)
-                if failed > 5:
-                    break
-            
-            # 진행률 업데이트
+        if not draws_to_fetch:
             if progress_bar:
-                progress_bar.progress(collected / total_draws)
+                progress_bar.progress(1.0)
+            return self.data
+        
+        total_draws = len(draws_to_fetch)
+        collected = 0
+        failed_count = 0
+        
+        # 병렬 처리로 속도 향상 (최대 20개 동시 요청)
+        with ThreadPoolExecutor(max_workers=20) as executor:
+            # 작업 제출
+            future_to_draw = {
+                executor.submit(self.fetch_draw_data, draw_no): draw_no 
+                for draw_no in draws_to_fetch
+            }
             
-            # API 부하 방지를 위한 딜레이
-            time.sleep(0.1)
+            # 완료된 작업 처리
+            for future in as_completed(future_to_draw):
+                draw_no = future_to_draw[future]
+                try:
+                    draw_data = future.result()
+                    if draw_data:
+                        self.data[draw_no] = draw_data
+                        collected += 1
+                        
+                        # 주기적으로 캐시 저장 (100개마다)
+                        if collected % 100 == 0:
+                            self.save_cache()
+                    else:
+                        failed_count += 1
+                        # 연속 실패가 많으면 중단
+                        if failed_count > 10:
+                            break
+                            
+                except Exception:
+                    failed_count += 1
+                
+                # 진행률 업데이트
+                if progress_bar:
+                    progress = collected / total_draws
+                    progress_bar.progress(min(progress, 1.0))
         
         # 최종 캐시 저장
         self.save_cache()

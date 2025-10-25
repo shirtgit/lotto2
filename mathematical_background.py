@@ -84,21 +84,6 @@ def render_fibonacci_section():
     # 시각화
     st.markdown("---")
     st.markdown(render_fibonacci_visualization(), unsafe_allow_html=True)
-    
-    # 실제 적용 예시
-    st.markdown("#### 💡 실제 적용 예시")
-    st.code("""
-# 1~45 범위의 피보나치 수
-fibonacci_numbers = [1, 1, 2, 3, 5, 8, 13, 21, 34]
-
-# 황금비를 이용한 위치 계산
-phi = 1.618033988749895
-positions = []
-for i in range(1, 7):
-    pos = int(45 * (i / (1 + phi)))
-    positions.append(pos)
-# 결과: [17, 27, 33, 37, 40, 42]
-    """, language="python")
 
 
 def render_pascal_section():
@@ -159,24 +144,6 @@ def render_pascal_section():
     # 시각화
     st.markdown("---")
     st.markdown(render_pascal_triangle(), unsafe_allow_html=True)
-    
-    # 실제 적용 예시
-    st.markdown("#### 💡 실제 적용 예시")
-    st.code("""
-from scipy.special import comb
-
-# 파스칼 삼각형 10번째 행
-row = 10
-pascal_row = [int(comb(row, k)) for k in range(row + 1)]
-# 결과: [1, 10, 45, 120, 210, 252, 210, 120, 45, 10, 1]
-
-# 1-45 범위로 매핑
-mapped = [(val % 45) + 1 for val in pascal_row]
-
-# 기댓값 계산
-probabilities = {num: freq/total for num, freq in frequency.items()}
-expected_values = {num: prob * num for num, prob in probabilities.items()}
-    """, language="python")
 
 
 def render_fermat_section():
@@ -245,27 +212,6 @@ def render_fermat_section():
     # 시각화
     st.markdown("---")
     st.markdown(render_fermat_primes(), unsafe_allow_html=True)
-    
-    # 실제 적용 예시
-    st.markdown("#### 💡 실제 적용 예시")
-    st.code("""
-def is_prime(n):
-    if n < 2: return False
-    if n == 2: return True
-    if n % 2 == 0: return False
-    for i in range(3, int(n**0.5) + 1, 2):
-        if n % i == 0: return False
-    return True
-
-# 1-45 범위의 소수
-primes = [n for n in range(2, 46) if is_prime(n)]
-# 결과: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43]
-
-# 완전제곱수와 그 차이
-squares = [i*i for i in range(1, 7)]  # [1, 4, 9, 16, 25, 36]
-differences = [squares[i+1] - squares[i] for i in range(len(squares)-1)]
-# 결과: [3, 5, 7, 9, 11] (모두 홀수!)
-    """, language="python")
     
     # 페르마의 마지막 정리 설명
     st.markdown("---")

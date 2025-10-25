@@ -10,25 +10,7 @@ import base64
 
 def render_lotto_ball(number: int, color: str = '#4169E1'):
     """로또 공 스타일의 번호를 렌더링합니다."""
-    ball_html = f"""
-    <div style="
-        display: inline-block;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, {color} 0%, {color}dd 100%);
-        color: white;
-        font-size: 24px;
-        font-weight: bold;
-        text-align: center;
-        line-height: 60px;
-        margin: 5px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -2px 4px rgba(0, 0, 0, 0.2);
-        border: 3px solid rgba(255, 255, 255, 0.3);
-    ">
-        {number}
-    </div>
-    """
+    ball_html = f"""<div style="display: inline-block; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, {color} 0%, {color}dd 100%); color: white; font-size: 24px; font-weight: bold; text-align: center; line-height: 60px; margin: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -2px 4px rgba(0, 0, 0, 0.2); border: 3px solid rgba(255, 255, 255, 0.3);">{number}</div>"""
     return ball_html
 
 
@@ -44,36 +26,12 @@ def render_recommendation_card(recommendation: dict):
     # 로또 공 HTML 생성
     balls_html = "".join([render_lotto_ball(num, color) for num in numbers])
     
-    card_html = f"""
-    <div style="
-        border: 2px solid {color};
-        border-radius: 15px;
-        padding: 20px;
-        margin: 15px 0;
-        background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    ">
-        <h3 style="color: {color}; margin-top: 0;">
-            {name}
-        </h3>
-        <p style="color: #888; font-size: 14px; margin: 5px 0;">
-            <strong>{mathematician}</strong> · {description}
-        </p>
-        <div style="text-align: center; margin: 20px 0;">
-            {balls_html}
-        </div>
-        <p style="
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            color: #ccc;
-            margin: 10px 0 0 0;
-        ">
-            💡 {reasoning}
-        </p>
-    </div>
-    """
+    card_html = f"""<div style="border: 2px solid {color}; border-radius: 15px; padding: 20px; margin: 15px 0; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h3 style="color: {color}; margin-top: 0;">{name}</h3>
+        <p style="color: #888; font-size: 14px; margin: 5px 0;"><strong>{mathematician}</strong> · {description}</p>
+        <div style="text-align: center; margin: 20px 0;">{balls_html}</div>
+        <p style="background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 8px; font-size: 13px; color: #ccc; margin: 10px 0 0 0;">💡 {reasoning}</p>
+    </div>"""
     
     st.markdown(card_html, unsafe_allow_html=True)
 
