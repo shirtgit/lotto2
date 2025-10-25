@@ -201,42 +201,16 @@ def render_fibonacci_visualization():
     """피보나치 수열 시각화"""
     fib = [1, 1, 2, 3, 5, 8, 13, 21, 34]
     
-    html = """
-    <div style="text-align: center; padding: 20px;">
-        <h4 style="color: #FFD700;">피보나치 수열</h4>
-        <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
-    """
+    html = '<div style="text-align: center; padding: 20px;"><h4 style="color: #FFD700;">피보나치 수열</h4><div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">'
     
     for i, num in enumerate(fib):
         size = 30 + (i * 5)
-        html += f"""
-        <div style="
-            width: {size}px;
-            height: {size}px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin: 5px;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        ">
-            {num}
-        </div>
-        """
+        html += f'<div style="width: {size}px; height: {size}px; border-radius: 50%; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: white; display: inline-flex; align-items: center; justify-content: center; margin: 5px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">{num}</div>'
         
         if i < len(fib) - 1:
             html += '<span style="color: #FFD700; font-size: 20px; margin: 0 5px;">→</span>'
     
-    html += """
-        </div>
-        <p style="color: #ccc; margin-top: 20px;">
-            각 숫자는 이전 두 숫자의 합. 황금비 φ ≈ 1.618로 수렴
-        </p>
-    </div>
-    """
+    html += '</div><p style="color: #ccc; margin-top: 20px;">각 숫자는 이전 두 숫자의 합. 황금비 φ ≈ 1.618로 수렴</p></div>'
     
     return html
 
@@ -244,47 +218,20 @@ def render_fibonacci_visualization():
 def render_pascal_triangle():
     """파스칼 삼각형 시각화"""
     rows = 6
+    from math import comb
     
-    html = """
-    <div style="text-align: center; padding: 20px;">
-        <h4 style="color: #4169E1;">파스칼 삼각형</h4>
-        <div style="display: flex; flex-direction: column; align-items: center;">
-    """
+    html = '<div style="text-align: center; padding: 20px;"><h4 style="color: #4169E1;">파스칼 삼각형</h4><div style="display: flex; flex-direction: column; align-items: center;">'
     
     for n in range(rows):
         html += '<div style="display: flex; justify-content: center; margin: 5px 0;">'
         
         for k in range(n + 1):
-            from math import comb
             value = comb(n, k)
-            
-            html += f"""
-            <div style="
-                width: 50px;
-                height: 50px;
-                background: linear-gradient(135deg, #4169E1 0%, #1E90FF 100%);
-                color: white;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                margin: 3px;
-                border-radius: 8px;
-                font-weight: bold;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            ">
-                {value}
-            </div>
-            """
+            html += f'<div style="width: 50px; height: 50px; background: linear-gradient(135deg, #4169E1 0%, #1E90FF 100%); color: white; display: inline-flex; align-items: center; justify-content: center; margin: 3px; border-radius: 8px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">{value}</div>'
         
         html += '</div>'
     
-    html += """
-        </div>
-        <p style="color: #ccc; margin-top: 20px;">
-            각 수는 바로 위 두 수의 합. 조합 계수 C(n,k) 표현
-        </p>
-    </div>
-    """
+    html += '</div><p style="color: #ccc; margin-top: 20px;">각 수는 바로 위 두 수의 합. 조합 계수 C(n,k) 표현</p></div>'
     
     return html
 
@@ -293,37 +240,11 @@ def render_fermat_primes():
     """페르마 소수 시각화"""
     primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43]
     
-    html = """
-    <div style="text-align: center; padding: 20px;">
-        <h4 style="color: #32CD32;">1-45 범위의 소수</h4>
-        <div style="display: flex; justify-content: center; flex-wrap: wrap; max-width: 600px; margin: 0 auto;">
-    """
+    html = '<div style="text-align: center; padding: 20px;"><h4 style="color: #32CD32;">1-45 범위의 소수</h4><div style="display: flex; justify-content: center; flex-wrap: wrap; max-width: 600px; margin: 0 auto;">'
     
     for prime in primes:
-        html += f"""
-        <div style="
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin: 5px;
-            border-radius: 50%;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        ">
-            {prime}
-        </div>
-        """
+        html += f'<div style="width: 50px; height: 50px; background: linear-gradient(135deg, #32CD32 0%, #228B22 100%); color: white; display: inline-flex; align-items: center; justify-content: center; margin: 5px; border-radius: 50%; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">{prime}</div>'
     
-    html += f"""
-        </div>
-        <p style="color: #ccc; margin-top: 20px;">
-            총 {len(primes)}개의 소수. 페르마 소정리: a^(p-1) ≡ 1 (mod p)
-        </p>
-    </div>
-    """
+    html += f'</div><p style="color: #ccc; margin-top: 20px;">총 {len(primes)}개의 소수. 페르마 소정리: a^(p-1) ≡ 1 (mod p)</p></div>'
     
     return html
