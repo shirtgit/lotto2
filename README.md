@@ -229,7 +229,7 @@ lotto2/
 
 ## 👨‍💻 개발자
 
-**shirtgit**
+**shirtgit (쇼쇼)**
 - GitHub: [@shirtgit](https://github.com/shirtgit)
 
 ## 🙏 감사의 말
@@ -239,12 +239,18 @@ lotto2/
 - 블레즈 파스칼의 확률론
 - 피에르 드 페르마의 정수론
 
+## 📜 저작권
+
+© 2025 쇼쇼 (shirtgit). All rights reserved.
+
+본 프로젝트는 MIT 라이선스 하에 있으며, 교육 및 연구 목적으로 자유롭게 사용할 수 있습니다.
+
 ---
 
 <div align="center">
 
 **"수학은 우주의 언어이며, 패턴은 어디에나 존재한다"**
 
-Made with ❤️ and 🧮
+Made with ❤️ and 🧮 by 쇼쇼
 
 </div>

@@ -22,7 +22,7 @@ import json
 # 페이지 설정
 st.set_page_config(
     page_title="천재 수학자의 로또 추천 시스템",
-    page_icon="🎰",
+    page_icon="icon.ico",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -43,8 +43,19 @@ def initialize_session_state():
 
 def render_header():
     """헤더 렌더링"""
-    st.markdown("""
+    import base64
+    import os
+    
+    # 로고 이미지 인코딩
+    logo_html = ""
+    if os.path.exists("icon.ico"):
+        with open("icon.ico", "rb") as f:
+            logo_data = base64.b64encode(f.read()).decode()
+            logo_html = f'<img src="data:image/x-icon;base64,{logo_data}" style="width: 80px; height: 80px; margin-bottom: 10px;">'
+    
+    st.markdown(f"""
     <div style="text-align: center; padding: 20px 0;">
+        {logo_html}
         <h1>🎰 천재 수학자의 로또 번호 추천 시스템</h1>
         <p style="font-size: 18px; color: #888;">
             피보나치, 파스칼, 페르마의 천재적 사고방식으로
@@ -319,6 +330,10 @@ def main():
         <p style="font-size: 12px;">
             본 시스템은 교육 및 연구 목적으로 제작되었습니다.<br>
             로또는 확률 게임이며, 당첨을 보장하지 않습니다.
+        </p>
+        <p style="font-size: 11px; margin-top: 15px; color: #666;">
+            © 2025 쇼쇼 (shirtgit). All rights reserved.<br>
+            Made with ❤️ and 🧮
         </p>
     </div>
     """, unsafe_allow_html=True)
