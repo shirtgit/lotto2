@@ -24,10 +24,9 @@ wheels/
 *.egg
 
 # Streamlit
-.streamlit/
+.streamlit/secrets.toml
 
-# Data
-lotto_data.json
+# Data (배포시 lotto_data.json은 포함)
 *.csv
 
 # IDE
