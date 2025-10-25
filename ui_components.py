@@ -100,6 +100,15 @@ def apply_custom_css():
         /* 전체 페이지 스타일 */
         .main {
             background-color: #0E1117;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .block-container {
+            max-width: 1400px;
+            padding-left: 2rem;
+            padding-right: 2rem;
         }
         
         /* 헤더 스타일 */
