@@ -4,7 +4,7 @@ Configuration file for Lotto Analysis System
 
 # API Settings
 LOTTO_API_URL = "https://www.dhlottery.co.kr/common.do"
-MAX_DRAW_NUMBER = 1194  # 최대 회차 번호
+MAX_DRAW_NUMBER = 1195  # 최대 회차 번호
 MIN_DRAW_NUMBER = 1     # 최소 회차 번호
 
 # Lotto Settings
