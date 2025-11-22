@@ -17953,5 +17953,35 @@
     "bonus": 30,
     "first_prize_amount": 2205089827,
     "first_prize_winners": 13
+  },
+  "1198": {
+    "draw_no": 1198,
+    "draw_date": "2025-11-15",
+    "numbers": [
+      26,
+      30,
+      33,
+      38,
+      39,
+      41
+    ],
+    "bonus": 21,
+    "first_prize_amount": 2953686638,
+    "first_prize_winners": 10
+  },
+  "1199": {
+    "draw_no": 1199,
+    "draw_date": "2025-11-22",
+    "numbers": [
+      16,
+      24,
+      25,
+      30,
+      31,
+      32
+    ],
+    "bonus": 7,
+    "first_prize_amount": 1695609839,
+    "first_prize_winners": 17
   }
 }
