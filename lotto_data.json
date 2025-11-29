@@ -17983,5 +17983,20 @@
     "bonus": 7,
     "first_prize_amount": 1695609839,
     "first_prize_winners": 17
+  },
+  "1200": {
+    "draw_no": 1200,
+    "draw_date": "2025-11-29",
+    "numbers": [
+      1,
+      2,
+      4,
+      16,
+      20,
+      32
+    ],
+    "bonus": 45,
+    "first_prize_amount": 2357299875,
+    "first_prize_winners": 12
   }
 }
